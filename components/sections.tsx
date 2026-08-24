@@ -57,11 +57,6 @@ export function Hero() {
       <div className="grain" />
 
       <div className="relative mx-auto flex max-w-[1120px] flex-col items-center gap-6">
-        <div className="rise delay-1 flex h-8 items-center gap-2 rounded-full border border-edge bg-edgesoft/80 px-4 text-[12px] font-semibold text-sub sm:text-[12.5px]">
-          <span className="soft-pulse size-[7px] rounded-full bg-profit" />
-          Early access — opening venue by venue
-        </div>
-
         <h1 className="rise delay-2 max-w-[1020px] text-balance text-[44px] font-black leading-[1.02] tracking-[-0.025em] sm:text-[64px] lg:text-[82px]">
           Every venue you trade.
           <br />
@@ -141,9 +136,9 @@ function MarqueeHalf() {
 
 export function Marquee() {
   return (
-    <section className="flex flex-col gap-4.5 py-10 sm:py-14" id="venues">
+    <section className="flex w-full flex-col gap-5 py-10 sm:py-14" id="venues">
       <div className="text-center text-[11px] font-bold tracking-[0.24em] text-faint">READS EVERY VENUE YOU TRADE</div>
-      <div className="relative overflow-hidden">
+      <div className="relative w-full overflow-hidden border-y border-edge bg-card/40 py-5">
         <div className="pointer-events-none absolute inset-y-0 left-0 z-2 w-24 bg-gradient-to-r from-base from-10% to-transparent sm:w-40" />
         <div className="pointer-events-none absolute inset-y-0 right-0 z-2 w-24 bg-gradient-to-l from-base from-10% to-transparent sm:w-40" />
         <div className="marquee-track flex w-max items-center gap-16 pr-16">
@@ -394,7 +389,7 @@ export function FinalCta() {
           for the first time.
         </h2>
         <p className="text-[15px] text-sub sm:text-base">
-          Early access is opening venue by venue. Join the list and we&apos;ll tell you when yours is ready.
+          Join the waitlist and we&apos;ll tell you when your venues are ready.
         </p>
         <div className="mt-1.5 flex w-full justify-center">
           <WaitlistForm compact />
