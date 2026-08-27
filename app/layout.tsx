@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <body className={`${satoshi.variable} font-sans antialiased bg-base text-ink overflow-x-hidden`}>
         {children}
       </body>

@@ -3,12 +3,71 @@ import { OKX_PATHS } from "./okx-paths";
 
 /* ── Paragus mark ─────────────────────────────────────────────────────── */
 
+/* The real Paragus logo (public/paragus-knot.png, 256px master,
+   transparent background so it sits on any surface). */
+export function ParagusLogo({ size = 22, className = "" }: { size?: number; className?: string }) {
+  return (
+    <Image
+      src="/paragus-knot.png"
+      alt=""
+      width={size}
+      height={size}
+      className={`shrink-0 ${className}`.trim()}
+      style={{ width: size, height: size }}
+      aria-hidden="true"
+    />
+  );
+}
+
 export function ParagusMark({ size = 24, color = "#fafafa", strokeWidth = 7 }: { size?: number; color?: string; strokeWidth?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 100 100" fill="none" aria-hidden="true">
       <circle cx="50" cy="50" r="44" stroke={color} strokeWidth={strokeWidth} />
       <circle cx="50" cy="50" r="14" fill={color} />
     </svg>
+  );
+}
+
+/* ── Venue logos (official marks, /public/venues) ─────────────────────── */
+
+const VENUE_LOGOS = {
+  binance: "/venues/binance.webp",
+  coinbase: "/venues/coinbase.webp",
+  okx: "/venues/okx.webp",
+  bybit: "/venues/bybit-mark.png",
+  hyperliquid: "/venues/hyperliquid.webp",
+  aster: "/venues/aster.webp",
+  lighter: "/venues/lighter.webp",
+  edgex: "/venues/edgex.webp",
+  variational: "/venues/variational.webp",
+  polymarket: "/venues/polymarket.webp",
+  ibkr: "/venues/ibkr.png",
+} as const;
+
+export type VenueId = keyof typeof VENUE_LOGOS;
+
+/* Renders a venue's real mark as a small app-icon tile. */
+export function VenueLogo({
+  venue,
+  size = 20,
+  radius,
+  className = "",
+}: {
+  venue: VenueId;
+  size?: number;
+  radius?: number;
+  className?: string;
+}) {
+  return (
+    <Image
+      src={VENUE_LOGOS[venue]}
+      alt=""
+      width={size}
+      height={size}
+      className={`shrink-0 ${className}`.trim()}
+      style={{ width: size, height: size, borderRadius: radius ?? Math.max(3, size * 0.25) }}
+      aria-hidden="true"
+    />
   );
 }
 
