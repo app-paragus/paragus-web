@@ -9,3 +9,6 @@ npm-debug.log*
 !.env.example
 next-env.d.ts
 *.tsbuildinfo
+
+# Claude Code local tooling (worktrees, session files)
+.claude/
