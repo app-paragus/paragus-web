@@ -1,5 +1,4 @@
 import { ParagusLogo, VenueLogo, ArrowRight, type VenueId } from "./icons";
-import { WaitlistForm } from "./waitlist-form";
 import { ProductMock } from "./product-mock";
 import { Reveal } from "./reveal";
 import { HeroConvergence } from "./hero-convergence";
@@ -19,19 +18,19 @@ export function Nav() {
           <a href="#preview" className="text-sm font-medium text-sub transition-colors hover:text-ink">Product</a>
           <a href="#venues" className="text-sm font-medium text-sub transition-colors hover:text-ink">Venues</a>
           <a href="#security" className="text-sm font-medium text-sub transition-colors hover:text-ink">Security</a>
-          <a href="#" className="text-sm font-medium text-dim transition-colors hover:text-ink">Sign in</a>
+          <a href="/login" className="text-sm font-medium text-dim transition-colors hover:text-ink">Sign in</a>
           <a
-            href="#waitlist"
+            href="/signup"
             className="flex h-11 items-center justify-center rounded-full bg-ink px-6 text-sm font-bold text-base transition-colors hover:bg-[#e4e4e7]"
           >
-            Join the waitlist
+            Create account
           </a>
         </nav>
         <a
-          href="#waitlist"
+          href="/signup"
           className="flex h-10 items-center justify-center rounded-full bg-ink px-4 text-[13px] font-bold text-base md:hidden"
         >
-          Waitlist
+          Sign up
         </a>
       </div>
     </header>
@@ -39,37 +38,6 @@ export function Nav() {
 }
 
 /* ── Hero ────────────────────────────────────────────────────────────── */
-
-function MetricCard({
-  label,
-  value,
-  formula,
-  badge,
-  className = "",
-}: {
-  label: string;
-  value: string;
-  formula: string;
-  badge?: string;
-  className?: string;
-}) {
-  return (
-    <div
-      className={`flex-col gap-2 rounded-xl border border-edge bg-card/90 p-4 text-left shadow-[0_20px_60px_rgba(0,0,0,0.6)] backdrop-blur-lg ${className}`}
-    >
-      <div className="flex items-center justify-between gap-2">
-        <div className="text-[10px] font-bold tracking-[0.16em] text-dim">{label}</div>
-        {badge ? (
-          <div className="flex h-[19px] items-center rounded-full border border-sub px-2 text-[9px] font-extrabold tracking-[0.08em] text-sub">
-            {badge}
-          </div>
-        ) : null}
-      </div>
-      <div className="text-[26px] font-extrabold tabular-nums">{value}</div>
-      <div className="text-[11.5px] italic text-sub">{formula}</div>
-    </div>
-  );
-}
 
 export function Hero() {
   return (
@@ -94,10 +62,10 @@ export function Hero() {
 
         <div className="rise delay-4 mt-2 flex w-full flex-col items-center justify-center gap-3 sm:w-auto sm:flex-row">
           <a
-            href="#waitlist"
+            href="/signup"
             className="flex h-[52px] w-full items-center justify-center gap-2 rounded-lg bg-ink px-8 text-[16px] font-bold text-base shadow-[inset_0_-1px_0_rgba(0,0,0,0.18),0_0_44px_rgba(250,250,250,0.16)] transition-colors hover:bg-[#e4e4e7] sm:w-auto"
           >
-            Join the waitlist
+            Create account
             <ArrowRight />
           </a>
           <a
@@ -124,21 +92,6 @@ export function Showcase() {
       <div className="grain" />
       <div className="rise-scale delay-5 relative mx-auto w-full max-w-[1120px]">
         <div className="pointer-events-none absolute -top-10 left-1/2 h-[520px] w-[130%] -translate-x-1/2 bg-[radial-gradient(ellipse_55%_65%_at_50%_30%,rgba(34,171,148,0.10)_0%,rgba(250,250,250,0.05)_40%,rgba(9,9,11,0)_72%)]" />
-
-        {/* floating metric cards (xl and up) */}
-        <MetricCard
-          className="float-a absolute -left-5 bottom-24 z-3 hidden w-[218px] xl:flex xl:-left-[74px]"
-          label="SHARPE RATIO · 30D"
-          value="1.31"
-          formula="(Rₐ − R_f) / σₐ · n = 312"
-        />
-        <MetricCard
-          className="float-b absolute -right-4 top-14 z-3 hidden w-[212px] xl:flex xl:-right-[66px]"
-          label="PROB. SHARPE"
-          value="59.8%"
-          formula="PSR = P( SR > SR* )"
-          badge="UNPROVEN"
-        />
 
         <ProductMock />
 
@@ -437,7 +390,7 @@ export function Failures() {
 
 export function FinalCta() {
   return (
-    <section className="relative scroll-mt-20 overflow-hidden border-t border-edge px-5 py-24 text-center sm:px-8 sm:py-32" id="waitlist">
+    <section className="relative overflow-hidden border-t border-edge px-5 py-24 text-center sm:px-8 sm:py-32">
       <div className="dotgrid [mask-image:radial-gradient(ellipse_55%_75%_at_50%_55%,#000_20%,transparent_70%)] [-webkit-mask-image:radial-gradient(ellipse_55%_75%_at_50%_55%,#000_20%,transparent_70%)]" />
       <div className="pointer-events-none absolute -bottom-[440px] left-1/2 size-[1000px] -translate-x-1/2 bg-[radial-gradient(circle,rgba(34,171,148,0.07)_0%,rgba(250,250,250,0.04)_35%,rgba(9,9,11,0)_62%)]" />
       <div className="grain" />
@@ -448,10 +401,22 @@ export function FinalCta() {
           for the first time.
         </h2>
         <p className="text-[15px] text-sub sm:text-base">
-          Join the waitlist and we&apos;ll tell you when your venues are ready.
+          Create your account and we&apos;ll tell you when your venues are ready.
         </p>
-        <div className="mt-1.5 flex w-full justify-center">
-          <WaitlistForm compact />
+        <div className="mt-1.5 flex w-full flex-col items-center justify-center gap-3 sm:flex-row">
+          <a
+            href="/signup"
+            className="flex h-[50px] w-full max-w-[300px] items-center justify-center gap-2 rounded-lg bg-ink px-7 text-[15px] font-bold text-base shadow-[inset_0_-1px_0_rgba(0,0,0,0.18),0_0_40px_rgba(250,250,250,0.14)] transition-colors hover:bg-[#e4e4e7] sm:w-auto"
+          >
+            Create account
+            <ArrowRight />
+          </a>
+          <a
+            href="/login"
+            className="flex h-[50px] w-full max-w-[300px] items-center justify-center rounded-lg border border-edge bg-card/60 px-6 text-[15px] font-semibold text-sub transition-colors hover:border-ghost hover:text-ink sm:w-auto"
+          >
+            Sign in
+          </a>
         </div>
         <p className="text-[13px] text-dim">Read-only keys · No withdrawal rights · Your capital never moves</p>
       </div>
