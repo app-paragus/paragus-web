@@ -57,10 +57,94 @@
 .delay-3 { animation-delay: 0.23s; }
 .delay-4 { animation-delay: 0.32s; }
 .delay-5 { animation-delay: 0.45s; }
+.delay-6 { animation-delay: 0.9s; }
+.delay-7 { animation-delay: 1.5s; }
 .marquee-track { animation: marquee 46s linear infinite; }
 .soft-pulse { animation: soft-pulse 2.4s ease-in-out infinite; }
 .float-a { animation: float-a 7s ease-in-out infinite; }
 .float-b { animation: float-b 9s ease-in-out infinite; }
+
+/* ── Product mock: the curve draws itself once, on load ─────────────── */
+
+@keyframes draw-line {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes fade-in {
+  to { opacity: 1; }
+}
+/* Requires pathLength={1} on the path. */
+.draw-line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw-line 1.5s cubic-bezier(0.55, 0.06, 0.28, 0.99) 0.2s forwards;
+}
+.fade-late { opacity: 0; animation: fade-in 0.7s ease 1.1s forwards; }
+.fade-later { opacity: 0; animation: fade-in 0.5s ease 1.5s forwards; }
+
+/* Hero convergence beams — each draws top-to-bottom, staggered.
+   Requires pathLength={1} on the path. */
+.beam {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw-line 0.8s cubic-bezier(0.55, 0.06, 0.28, 0.99) forwards;
+}
+.beam-1 { animation-delay: 0.5s; }
+.beam-2 { animation-delay: 0.58s; }
+.beam-3 { animation-delay: 0.66s; }
+.beam-4 { animation-delay: 0.74s; }
+.beam-5 { animation-delay: 0.82s; }
+.beam-6 { animation-delay: 0.9s; }
+
+/* After the draw, short pulses stream down each beam forever —
+   venues feeding the portfolio. Requires pathLength={1}. */
+@keyframes beam-flow {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+.beam-flow {
+  stroke-dasharray: 0.05 0.95;
+  animation: beam-flow 2.2s linear infinite;
+}
+
+/* Venue icons orbiting the account avatar. The counter element spins in
+   reverse so each icon stays upright while the constellation turns. */
+@keyframes orbit-spin {
+  to { transform: rotate(360deg); }
+}
+.orbit { animation: orbit-spin 46s linear infinite; }
+.orbit-counter { animation: orbit-spin 46s linear infinite reverse; }
+
+/* ── Hero logo: a 3D planet rendered in WebGL (planet-logo.tsx) ─────── */
+
+/* The planet canvas: just the atmosphere halo — sphere, lighting,
+   rotation, and blinking eyes are rendered in-shader. */
+.planet-halo {
+  display: block;
+  border-radius: 50%;
+  box-shadow: 0 0 44px rgba(250, 250, 250, 0.07);
+}
+
+/* Page switches inside the mock. */
+@keyframes view-in {
+  from { opacity: 0; transform: translateY(7px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.view-in { animation: view-in 0.38s cubic-bezier(0.16, 0.84, 0.28, 1); }
+
+/* ── Netting: long and short offset around a zero axis ──────────────── */
+
+/* Bars grow from the axis once the card scrolls into view (.reveal-in
+   is added by <Reveal>). Each bar carries its target width in --w. */
+.net-bar {
+  width: 0;
+  transition: width 0.9s cubic-bezier(0.16, 0.84, 0.28, 1);
+}
+.reveal-in .net-bar { width: var(--w); }
+.reveal-in .net-d1 { transition-delay: 0.1s; }
+.reveal-in .net-d2 { transition-delay: 0.3s; }
+.reveal-in .net-d3 { transition-delay: 0.85s; }
+.net-fade { opacity: 0; transition: opacity 0.5s ease 1s; }
+.reveal-in .net-fade { opacity: 1; }
 
 /* Film grain overlay — pure SVG turbulence, no asset. */
 .grain {
@@ -83,15 +167,42 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   .marquee-track,
   .soft-pulse,
   .float-a,
-  .float-b {
+  .float-b,
+  .view-in {
     animation: none;
   }
   .rise,
-  .rise-scale {
+  .rise-scale,
+  .fade-late,
+  .fade-later {
     animation: none;
+    opacity: 1;
+  }
+  .draw-line,
+  .beam {
+    animation: none;
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+  }
+  .beam-flow {
+    display: none;
+  }
+  .orbit,
+  .orbit-counter {
+    animation: none;
+  }
+  .net-bar {
+    transition: none;
+    width: var(--w);
+  }
+  .net-fade {
+    transition: none;
     opacity: 1;
   }
 }

@@ -1,4 +1,4 @@
-import { Nav, Hero, Marquee, Bento, Failures, FinalCta, Footer } from "@/components/sections";
+import { Nav, Hero, Marquee, Showcase, Bento, Failures, FinalCta, Footer } from "@/components/sections";
 
 export default function Home() {
   return (
@@ -7,6 +7,7 @@ export default function Home() {
       <main>
         <Hero />
         <Marquee />
+        <Showcase />
         <Bento />
         <Failures />
         <FinalCta />
